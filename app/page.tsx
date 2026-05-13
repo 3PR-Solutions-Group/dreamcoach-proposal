@@ -159,6 +159,9 @@ export default function Home() {
             <Link href="/moodboard" className="label text-muted hover:text-text transition-colors">
               Moodboard →
             </Link>
+            <Link href="/code-review" className="label text-muted hover:text-text transition-colors">
+              Code Review →
+            </Link>
           </div>
         </div>
       </nav>
@@ -763,6 +766,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-6">
             <Link href="/moodboard" className="text-sm text-muted hover:text-text transition-colors">Moodboard</Link>
+            <Link href="/code-review" className="text-sm text-muted hover:text-text transition-colors">Code Review</Link>
             <span className="text-sm text-muted">Prepared for David King-Reubens</span>
           </div>
         </div>
