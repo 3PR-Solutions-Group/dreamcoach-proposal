@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DreamCoach — Build Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A0C10;
+  --card: #141820;
+  --card2: #1A2030;
+  --border: rgba(255,255,255,0.08);
+  --emerald: #34D98A;
+  --teal: #4ECDC4;
+  --text: #F0F2F8;
+  --muted: #8B90A0;
+  --gold: #C9A84C;
+  --amber: #F5A623;
+  --red: #E55A5A;
+  --sapphire: #4A8EF5;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--emerald);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,12,16,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-weight:700;font-size:18px;color:var(--text);letter-spacing:-0.02em}
+.nav-logo span{color:var(--emerald)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--muted);font-size:14px;font-weight:500;letter-spacing:0.02em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--text);text-decoration:none}
+.nav-cta{background:var(--emerald);color:#0A0C10;font-weight:700;font-size:13px;padding:10px 20px;border-radius:6px;letter-spacing:0.02em;text-transform:uppercase;transition:opacity 0.2s}
+.nav-cta:hover{opacity:0.85;text-decoration:none}
+
+/* SECTIONS */
+section{padding:120px 40px;max-width:1200px;margin:0 auto}
+.section-label{font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--emerald);margin-bottom:12px;display:block}
+.section-number{color:var(--muted);margin-right:8px}
+h1,h2,h3{font-family:'DM Serif Display',serif;letter-spacing:-0.02em;line-height:1.15}
+h1{font-size:clamp(48px,6vw,88px);font-weight:400}
+h2{font-size:clamp(32px,4vw,52px);font-weight:400;margin-bottom:20px}
+h3{font-size:24px;font-weight:400;margin-bottom:12px}
+p{color:var(--muted);font-size:17px;line-height:1.75;margin-bottom:16px}
+p strong{color:var(--text)}
+
+/* GRID */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+@media(max-width:768px){.grid-3,.grid-2{grid-template-columns:1fr}.nav-links{display:none}section{padding:80px 24px}}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px;transition:border-color 0.2s}
+.card:hover{border-color:rgba(255,255,255,0.15)}
+.card2{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:28px}
+.card-accent-top{border-top:2px solid var(--emerald)}
+.card-gold-top{border-top:2px solid var(--gold)}
+.card-teal-top{border-top:2px solid var(--teal)}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(52,217,138,0.12);color:var(--emerald);font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:6px 12px;border-radius:20px;border:1px solid rgba(52,217,138,0.25)}
+.badge-gold{background:rgba(201,168,76,0.12);color:var(--gold);border-color:rgba(201,168,76,0.25)}
+.badge-amber{background:rgba(245,166,35,0.12);color:var(--amber);border-color:rgba(245,166,35,0.25)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border-radius:8px;font-weight:700;font-size:15px;letter-spacing:0.01em;cursor:pointer;transition:all 0.2s;text-decoration:none;border:none}
+.btn-primary{background:var(--emerald);color:#0A0C10}
+.btn-primary:hover{opacity:0.88;transform:translateY(-1px);text-decoration:none}
+.btn-secondary{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.2)}
+.btn-secondary:hover{border-color:rgba(255,255,255,0.5);text-decoration:none}
+
+/* STATS */
+.stat-number{font-size:52px;font-weight:800;letter-spacing:-0.03em;line-height:1;font-family:'Inter',sans-serif}
+.stat-label{font-size:13px;color:var(--muted);margin-top:6px;letter-spacing:0.05em;text-transform:uppercase}
+
+/* FADE UP */
+.fade-up{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-up.visible{opacity:1;transform:none}
+
+/* HERO */
+#hero{padding:180px 40px 120px;max-width:1200px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.hero-tagline{display:inline-flex;align-items:center;gap:8px;background:rgba(52,217,138,0.08);border:1px solid rgba(52,217,138,0.2);border-radius:20px;padding:8px 16px;margin-bottom:32px;font-size:13px;font-weight:500;color:var(--emerald)}
+.hero-title{background:linear-gradient(135deg,#F0F2F8 0%,#34D98A 60%,#4ECDC4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:24px}
+.hero-sub{font-size:20px;color:var(--muted);max-width:600px;margin-bottom:48px;line-height:1.65}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:80px}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:60px;padding-top:60px;border-top:1px solid var(--border)}
+@media(max-width:768px){.hero-stats{grid-template-columns:repeat(2,1fr)}}
+.hero-stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 20px}
+
+/* PROGRESS BAR */
+.progress-bar{background:rgba(255,255,255,0.06);border-radius:100px;height:8px;overflow:hidden;margin:12px 0}
+.progress-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--emerald),var(--teal));transition:width 1.2s ease}
+
+/* PHONE MOCKUP */
+.phone-frame{width:280px;background:#0D0F14;border:2px solid rgba(255,255,255,0.12);border-radius:40px;padding:40px 20px 32px;margin:0 auto;position:relative}
+.phone-frame::before{content:'';position:absolute;top:16px;left:50%;transform:translateX(-50%);width:80px;height:6px;background:rgba(255,255,255,0.15);border-radius:100px}
+.phone-screen-item{background:var(--card2);border-radius:10px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--emerald)}
+.phone-screen-item.amber{border-left-color:var(--amber)}
+
+/* FLOW DIAGRAM */
+.flow-container{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;padding:40px 0}
+.flow-node{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;text-align:center;min-width:140px}
+.flow-arrow{color:var(--emerald);font-size:24px;padding:0 12px;flex-shrink:0}
+.flow-node .node-icon{font-size:28px;margin-bottom:8px}
+.flow-node .node-label{font-size:13px;font-weight:600;color:var(--text)}
+.flow-node .node-sub{font-size:11px;color:var(--muted);margin-top:4px}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;margin-top:24px}
+th{text-align:left;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);padding:12px 16px;border-bottom:1px solid var(--border)}
+td{padding:16px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:15px;color:var(--muted)}
+td:first-child{color:var(--text);font-weight:500}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.check{color:var(--emerald);font-weight:700}
+.cross{color:var(--red)}
+.partial{color:var(--amber)}
+
+/* METRIC GRID */
+.metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.metric-item{background:var(--card2);border-radius:8px;padding:16px 20px}
+.metric-value{font-size:28px;font-weight:800;letter-spacing:-0.02em;color:var(--emerald)}
+.metric-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--emerald),var(--teal),var(--sapphire))}
+.timeline-item{position:relative;margin-bottom:40px;padding-left:24px}
+.timeline-dot{position:absolute;left:-37px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--emerald);border:2px solid var(--bg)}
+.timeline-item:nth-child(2) .timeline-dot{background:var(--teal)}
+.timeline-item:nth-child(3) .timeline-dot{background:var(--sapphire)}
+.timeline-phase{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--emerald);margin-bottom:4px}
+.timeline-item:nth-child(2) .timeline-phase{color:var(--teal)}
+.timeline-item:nth-child(3) .timeline-phase{color:var(--sapphire)}
+.timeline-title{font-size:20px;font-weight:600;margin-bottom:8px}
+.timeline-desc{font-size:15px;color:var(--muted);line-height:1.65}
+
+/* POSITIONING MATRIX */
+.matrix-wrapper{position:relative;width:100%;max-width:500px;aspect-ratio:1;margin:0 auto;border:1px solid var(--border);border-radius:12px;background:var(--card)}
+.matrix-axis-x{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;width:100%;text-align:center}
+.matrix-axis-y{position:absolute;left:24px;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap}
+.matrix-line-h{position:absolute;top:50%;left:0;right:0;height:1px;background:var(--border)}
+.matrix-line-v{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border)}
+.matrix-point{position:absolute;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%)}
+.matrix-label{position:absolute;font-size:11px;color:var(--muted);transform:translateX(-50%)}
+
+/* CALCULATOR */
+.calculator-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;max-width:600px;margin:0 auto}
+.calc-slider{width:100%;-webkit-appearance:none;height:6px;border-radius:100px;background:rgba(255,255,255,0.1);outline:none;margin:16px 0}
+.calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--emerald);cursor:pointer;border:3px solid var(--bg)}
+.calc-result{text-align:center;padding:24px;background:var(--card2);border-radius:10px;margin-top:20px}
+.calc-result-value{font-size:48px;font-weight:800;color:var(--emerald);letter-spacing:-0.03em}
+.calc-result-label{font-size:14px;color:var(--muted);margin-top:6px}
+
+/* DELIVERABLES */
+.deliverable-row{display:flex;gap:32px}
+.deliverable-col{flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px}
+.checklist-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.checklist-item:last-child{border-bottom:none}
+.checklist-check{color:var(--emerald);font-size:16px;flex-shrink:0;margin-top:2px}
+.checklist-text{font-size:15px;color:var(--muted)}
+.checklist-text strong{color:var(--text);display:block;margin-bottom:2px}
+
+/* STEP CARDS */
+.step-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px 32px 32px 80px}
+.step-number{position:absolute;left:28px;top:28px;width:36px;height:36px;border-radius:50%;background:rgba(52,217,138,0.12);border:1px solid rgba(52,217,138,0.3);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--emerald)}
+.step-number.gold{background:rgba(201,168,76,0.12);border-color:rgba(201,168,76,0.3);color:var(--gold)}
+
+/* CALLOUT */
+.callout{background:rgba(52,217,138,0.06);border:1px solid rgba(52,217,138,0.2);border-radius:12px;padding:32px 36px;text-align:center;margin:40px 0}
+.callout-gold{background:rgba(201,168,76,0.06);border-color:rgba(201,168,76,0.2)}
+.callout-title{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:12px}
+.callout-text{font-size:17px;color:var(--muted);max-width:600px;margin:0 auto}
+
+/* TRUST SCORE */
+.trust-ring{display:flex;align-items:center;justify-content:center;width:120px;height:120px;border-radius:50%;border:4px solid var(--emerald);background:var(--card);font-size:28px;font-weight:800;color:var(--emerald);margin:0 auto 20px;box-shadow:0 0 30px rgba(52,217,138,0.2)}
+
+/* ICON ROW */
+.icon-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.icon-pill{display:inline-flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:13px;color:var(--text)}
+
+/* SECTION DIVIDER */
+.divider{height:1px;background:var(--border);max-width:1200px;margin:0 auto}
+
+/* FOOTER */
+footer{background:var(--card);border-top:1px solid var(--border);padding:60px 40px;text-align:center}
+footer .footer-logo{font-size:22px;font-weight:800;margin-bottom:12px;color:var(--text)}
+footer .footer-logo span{color:var(--emerald)}
+footer p{color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Dream<span>Coach</span></div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#market">Market</a></li>
+    <li><a href="#monetisation">Monetisation</a></li>
+    <li><a href="#build">Build</a></li>
+    <li><a href="#deliver">Deliver</a></li>
+  </ul>
+  <a href="#next-steps" class="nav-cta">Let's Build</a>
+</nav>
+
+<!-- SECTION 1: HERO -->
+<div id="hero">
+  <div class="fade-up">
+    <div class="hero-tagline">
+      <span>⬡</span>
+      <span>3PR Build Proposal · Confidential</span>
+    </div>
+    <h1 class="hero-title">The dream<br>accountability OS.</h1>
+    <p class="hero-sub">A proposal for DreamCoach — the first app that takes dreams seriously, holds you accountable through daily consistency, and when the time is right, helps you let go with grace.</p>
+    <div class="hero-actions">
+      <a href="#solution" class="btn btn-primary">See the Vision →</a>
+      <a href="#next-steps" class="btn btn-secondary">Book the Build</a>
+    </div>
+  </div>
+  <div class="hero-stats fade-up" style="transition-delay:0.15s">
+    <div class="hero-stat-card">
+      <div class="stat-number" style="color:var(--emerald)" data-target="13" data-suffix="B">0</div>
+      <div class="stat-label">£ Global Market</div>
+    </div>
+    <div class="hero-stat-card">
+      <div class="stat-number" style="color:var(--teal)" data-target="144" data-suffix="%" data-decimal="0.1">0</div>
+      <div class="stat-label">Market CAGR</div>
+    </div>
+    <div class="hero-stat-card">
+      <div class="stat-number" style="color:var(--gold)" data-target="14" data-suffix="M">0</div>
+      <div class="stat-label">£ SOM Year 3</div>
+    </div>
+    <div class="hero-stat-card">
+      <div class="stat-number" style="color:var(--sapphire)" data-target="62" data-suffix="%">0</div>
+      <div class="stat-label">Build Complete</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 2: THE PROBLEM -->
+<section id="problem" class="fade-up">
+  <span class="section-label"><span class="section-number">01</span>The Problem</span>
+  <h2>Dreams die in silence — not from lack of ambition.</h2>
+  <p>Every existing app treats the dream as a task. None of them treat it as what it actually is: the most meaningful commitment a person can make to themselves.</p>
+  <div class="grid-3" style="margin-top:48px">
+    <div class="card card-accent-top fade-up" style="transition-delay:0.1s">
+      <div style="font-size:36px;margin-bottom:16px">📉</div>
+      <h3>52% Drop Off Within 30 Days</h3>
+      <p>Industry-wide, more than half of all habit app users abandon within a month. The apps are failing the user — not the other way around.</p>
+      <div class="badge" style="margin-top:16px">Market-wide epidemic</div>
+    </div>
+    <div class="card card-accent-top fade-up" style="transition-delay:0.2s">
+      <div style="font-size:36px;margin-bottom:16px">🎯</div>
+      <h3>Apps Track Tasks, Not Dreams</h3>
+      <p>Streaks, Habitica, Done — all task-level. No competitor operates at the level of meaning. No app asks: <em>what do you want your life to look like?</em></p>
+      <div class="badge" style="margin-top:16px">Category gap</div>
+    </div>
+    <div class="card card-accent-top fade-up" style="transition-delay:0.3s">
+      <div style="font-size:36px;margin-bottom:16px">🔓</div>
+      <h3>"Letting Go" is Treated as Failure</h3>
+      <p>No app helps users release a dream with dignity. They all assume persistence is always right. The emotional cost of holding on too long is invisible — and enormous.</p>
+      <div class="badge" style="margin-top:16px">White space</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 3: THE SOLUTION -->
+<section id="solution" class="fade-up">
+  <span class="section-label"><span class="section-number">02</span>The Solution</span>
+  <h2>DreamCoach. Three systems, one operating system for your dreams.</h2>
+  <p>Built around the full lifecycle of a dream — from the first step to the last.</p>
+  <div class="grid-3" style="margin-top:48px">
+    <div class="card2 card-accent-top fade-up" style="transition-delay:0.1s">
+      <div style="font-size:32px;margin-bottom:12px">⬡</div>
+      <h3 style="color:var(--emerald)">Dream Tracking</h3>
+      <p>Daily check-ins, streak mechanics with grace days, a points system, and a dream journal. The habit infrastructure that makes consistency possible.</p>
+    </div>
+    <div class="card2 card-teal-top fade-up" style="transition-delay:0.2s">
+      <div style="font-size:32px;margin-bottom:12px">👥</div>
+      <h3 style="color:var(--teal)">Dream Teams</h3>
+      <p>Intimate accountability groups of up to 5 people. A shared feed, team streaks, and gentle nudges. The social layer that makes retention possible.</p>
+    </div>
+    <div class="card2 card-gold-top fade-up" style="transition-delay:0.3s">
+      <div style="font-size:32px;margin-bottom:12px">✦</div>
+      <h3 style="color:var(--gold)">Letting Go System</h3>
+      <p>A structured, compassionate 4-step ceremony for releasing a dream. Reframes letting go as an act of self-awareness and courage — not failure.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 4: DREAM TRACKING -->
+<section id="dream-tracking" class="fade-up">
+  <span class="section-label"><span class="section-number">03</span>Dream Tracking</span>
+  <div class="grid-2" style="align-items:center;gap:60px">
+    <div>
+      <h2>The habit that makes every other habit possible.</h2>
+      <p>Daily check-ins are the core ritual. Simple enough to do in 30 seconds. Meaningful enough to build on for years.</p>
+      <div style="margin-top:32px">
+        <div class="checklist-item" style="border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:16px">
+          <span class="checklist-check">⬡</span>
+          <div class="checklist-text"><strong>Daily Check-In</strong>"Did you take a step toward your dream today?" — one question, 30 seconds, non-negotiable.</div>
+        </div>
+        <div class="checklist-item" style="border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:16px">
+          <span class="checklist-check">⬡</span>
+          <div class="checklist-text"><strong>Grace Days</strong>1 grace day per 7 — missing once doesn't break what you've built. The streak is forgiving by design.</div>
+        </div>
+        <div class="checklist-item" style="border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:16px">
+          <span class="checklist-check">⬡</span>
+          <div class="checklist-text"><strong>Points System</strong>Weekly + monthly points — gamified accountability that feels meaningful, not childish.</div>
+        </div>
+        <div class="checklist-item" style="padding-bottom:0">
+          <span class="checklist-check">⬡</span>
+          <div class="checklist-text"><strong>Dream Journal</strong>Short notes on each check-in. The log of someone showing up, day after day.</div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-up" style="transition-delay:0.2s">
+      <div class="phone-frame">
+        <div style="font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px">DREAM COACH · HOME</div>
+        <div style="background:var(--card2);border-radius:12px;padding:16px;margin-bottom:12px">
+          <div style="font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px">Active Dream</div>
+          <div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:12px">Build my coaching business</div>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span style="font-size:36px;font-weight:800;color:var(--emerald)">21</span>
+            <span style="font-size:12px;color:var(--muted)">days consistent</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
+        </div>
+        <div class="phone-screen-item">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Today's check-in</div>
+          <div style="font-size:13px;font-weight:600;color:var(--emerald)">✓ Completed · 3:21 PM</div>
+        </div>
+        <div class="phone-screen-item amber">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Streak status</div>
+          <div style="font-size:13px;font-weight:600;color:var(--amber)">⚠ Grace day available</div>
+        </div>
+        <div style="background:var(--emerald);color:#0A0C10;font-weight:700;font-size:13px;text-align:center;padding:12px;border-radius:8px;margin-top:12px">Check in on your dream</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 5: DREAM TEAMS -->
+<section id="dream-teams" class="fade-up">
+  <span class="section-label"><span class="section-number">04</span>Dream Teams</span>
+  <h2>The social layer that makes the difference between Day 30 and Day 300.</h2>
+  <p>Community features increase 30-day retention by up to 3×. Dream Teams are the core retention engine — intimate accountability groups of up to 5 people, with entirely different dreams, united by mutual commitment.</p>
+  <div style="margin:48px 0">
+    <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:24px">The Viral Invite Loop</div>
+    <div class="flow-container">
+      <div class="flow-node">
+        <div class="node-icon">👤</div>
+        <div class="node-label">User joins</div>
+        <div class="node-sub">Creates dream</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="node-icon">👥</div>
+        <div class="node-label">Creates Team</div>
+        <div class="node-sub">Invites 1–4 people</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="node-icon">📲</div>
+        <div class="node-label">Invite sent</div>
+        <div class="node-sub">With social proof</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node" style="border-color:rgba(52,217,138,0.4)">
+        <div class="node-icon">🔁</div>
+        <div class="node-label" style="color:var(--emerald)">New user</div>
+        <div class="node-sub">Loop repeats</div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-3" style="margin-top:32px">
+    <div class="card fade-up" style="transition-delay:0.1s">
+      <h3>Team Feed</h3>
+      <p>Reverse-chronological updates from teammates. What they're working on, how they're feeling, what's blocking them. Reactions, not likes.</p>
+    </div>
+    <div class="card fade-up" style="transition-delay:0.2s">
+      <h3>Team Streak</h3>
+      <p>A combined metric tracking how consistently the group is showing up. One number that holds everyone accountable to each other.</p>
+    </div>
+    <div class="card fade-up" style="transition-delay:0.3s">
+      <h3>Gentle Nudges</h3>
+      <p>If a teammate goes quiet, a gentle notification — "Your team noticed you haven't checked in." Accountability without shame.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 6: LETTING GO -->
+<section id="letting-go" class="fade-up">
+  <span class="section-label"><span class="section-number">05</span>Letting Go System</span>
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+    <h2 style="margin-bottom:0">The feature no other app has built.</h2>
+    <div class="badge badge-gold">Market Differentiator</div>
+  </div>
+  <p>Every competitor assumes your goal is fixed and their only job is to track it. DreamCoach is the first app to acknowledge that sometimes, letting go is growth. This is a four-step structured ceremony — not a delete button.</p>
+  <div class="grid-2" style="gap:20px;margin-top:48px">
+    <div class="step-card fade-up" style="transition-delay:0.1s">
+      <div class="step-number gold">1</div>
+      <h3 style="color:var(--gold)">Reflection</h3>
+      <p>A guided prompt to articulate why this dream no longer serves the person you're becoming. Private. Unhurried. No judgment.</p>
+    </div>
+    <div class="step-card fade-up" style="transition-delay:0.2s">
+      <div class="step-number gold">2</div>
+      <h3 style="color:var(--gold)">Recognition</h3>
+      <p>Acknowledging what the journey taught you. What you gained. What you learned about yourself. The dream wasn't wasted — it built you.</p>
+    </div>
+    <div class="step-card fade-up" style="transition-delay:0.3s">
+      <div class="step-number gold">3</div>
+      <h3 style="color:var(--gold)">Release Ceremony</h3>
+      <p>A symbolic, meaningful in-app ritual for closure. Written or interactive. The moment of intentional release — not abandonment.</p>
+    </div>
+    <div class="step-card fade-up" style="transition-delay:0.4s">
+      <div class="step-number gold">4</div>
+      <h3 style="color:var(--gold)">What's Next</h3>
+      <p>The option to return to active dreaming with new focus, or to hold the space open. Letting go creates room — DreamCoach honours that.</p>
+    </div>
+  </div>
+  <div class="callout callout-gold fade-up" style="margin-top:48px;transition-delay:0.5s">
+    <div class="callout-title">"Letting go isn't giving up.<br>It's making room for what's next."</div>
+    <div class="callout-text">This framing is genuinely press-worthy. No wellness app has ever said this. It's the hook for a full PR campaign at launch.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 7: AI DREAM COACH -->
+<section id="ai-coach" class="fade-up">
+  <span class="section-label"><span class="section-number">06</span>AI Dream Coach</span>
+  <h2>An AI that asks the right questions, not just the easy ones.</h2>
+  <p>The Dream Coach AI is Socratic — designed to help users discover their own obstacles, not to tell them what to do. It surfaces patterns, reframes setbacks, and paces the Letting Go ceremony with emotional intelligence.</p>
+  <div class="grid-2" style="margin-top:48px;align-items:start">
+    <div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:20px">v1 Features (Ship at Launch)</div>
+      <div class="card card-accent-top" style="margin-bottom:16px">
+        <h3 style="color:var(--emerald)">AI Dream Coach</h3>
+        <p>Conversational AI that opens with the user's dream context and recent check-in history. One question at a time. No overwhelm.</p>
+        <div class="icon-row" style="margin-top:12px">
+          <div class="icon-pill">Context-aware</div>
+          <div class="icon-pill">Pattern detection</div>
+          <div class="icon-pill">Premium-gated</div>
+        </div>
+      </div>
+      <div class="card card-gold-top">
+        <h3 style="color:var(--gold)">AI Letting Go Guide</h3>
+        <p>A structured, paced ceremony guide. Slower than the Dream Coach — longer pauses, more space for the user. The most emotionally significant interaction in the product.</p>
+        <div class="icon-row" style="margin-top:12px">
+          <div class="icon-pill">5-stage ceremony</div>
+          <div class="icon-pill">Ceremonial pacing</div>
+          <div class="icon-pill">Premium-gated</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:20px">AI Cost Model at Scale</div>
+      <div class="card2" style="margin-bottom:16px">
+        <table style="margin:0">
+          <tr><th>Feature</th><th>Tokens/session</th><th>Cost/session</th></tr>
+          <tr><td>Dream Coach session</td><td>~2,000</td><td>~$0.002</td></tr>
+          <tr><td>Letting Go ceremony</td><td>~5,000</td><td>~$0.005</td></tr>
+          <tr><td>10K users × 3 sessions/wk</td><td>—</td><td>~$30K/yr</td></tr>
+        </table>
+      </div>
+      <div class="callout fade-up" style="text-align:left;margin:0;padding:24px">
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--emerald);margin-bottom:8px">AI cost as % of revenue</div>
+        <div style="font-size:36px;font-weight:800;color:var(--emerald)">~3%</div>
+        <div style="font-size:14px;color:var(--muted);margin-top:4px">At 10K premium users: £960K revenue vs £30K AI costs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 8: MARKET OPPORTUNITY -->
+<section id="market" class="fade-up">
+  <span class="section-label"><span class="section-number">07</span>Market Opportunity</span>
+  <h2>A £13 billion market with a genuinely unclaimed position.</h2>
+  <p>The personal growth and habit tracking market is growing at 14.4% CAGR. DreamCoach occupies the intersection of three expanding segments — and the specific position it claims (high psychological depth + social accountability) is currently unoccupied by any competitor.</p>
+  <div class="grid-3" style="margin-top:48px">
+    <div class="card card-accent-top fade-up" style="transition-delay:0.1s;text-align:center">
+      <div style="font-size:11px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px">Total Addressable Market</div>
+      <div class="stat-number" style="color:var(--emerald)">£13B</div>
+      <p style="font-size:14px;margin-top:8px">All personal wellness, habit tracking, and digital coaching users globally</p>
+    </div>
+    <div class="card card-teal-top fade-up" style="transition-delay:0.2s;text-align:center">
+      <div style="font-size:11px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px">Serviceable Market</div>
+      <div class="stat-number" style="color:var(--teal)">£2.8B</div>
+      <p style="font-size:14px;margin-top:8px">English-speaking markets, age 22–45, demonstrated self-improvement interest</p>
+    </div>
+    <div class="card card-gold-top fade-up" style="transition-delay:0.3s;text-align:center">
+      <div style="font-size:11px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px">Obtainable — Year 3</div>
+      <div class="stat-number" style="color:var(--gold)">£14M</div>
+      <p style="font-size:14px;margin-top:8px">175K active subscribers at £6.50/month average net revenue</p>
+    </div>
+  </div>
+  <div style="margin-top:60px">
+    <div class="grid-2" style="align-items:start;gap:48px">
+      <div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:20px">Key Market Drivers</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="card2" style="display:flex;gap:14px;align-items:flex-start"><div style="color:var(--emerald);font-size:18px;flex-shrink:0">01</div><div><strong style="color:var(--text);display:block;margin-bottom:4px">AI is no longer optional</strong><span style="color:var(--muted);font-size:14px">58% of habit apps now integrate AI. Users expect it. Most do it poorly. DreamCoach does it deeply.</span></div></div>
+          <div class="card2" style="display:flex;gap:14px;align-items:flex-start"><div style="color:var(--emerald);font-size:18px;flex-shrink:0">02</div><div><strong style="color:var(--text);display:block;margin-bottom:4px">Social = retention</strong><span style="color:var(--muted);font-size:14px">Community features increase 30-day retention by up to 3×. Dream Teams is the structural answer to the market's biggest problem.</span></div></div>
+          <div class="card2" style="display:flex;gap:14px;align-items:flex-start"><div style="color:var(--emerald);font-size:18px;flex-shrink:0">03</div><div><strong style="color:var(--text);display:block;margin-bottom:4px">Gen Z demand for depth</strong><span style="color:var(--muted);font-size:14px">The market is moving away from toxic positivity toward genuine self-awareness tools. DreamCoach leads that direction.</span></div></div>
+          <div class="card2" style="display:flex;gap:14px;align-items:flex-start"><div style="color:var(--emerald);font-size:18px;flex-shrink:0">04</div><div><strong style="color:var(--text);display:block;margin-bottom:4px">Premiumisation accelerating</strong><span style="color:var(--muted);font-size:14px">36% of habit app users already pay for premium. The market proves willingness — DreamCoach needs to show enough value to unlock it.</span></div></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:20px">Positioning Matrix</div>
+        <div class="matrix-wrapper" style="height:320px">
+          <div class="matrix-line-h"></div>
+          <div class="matrix-line-v"></div>
+          <div class="matrix-axis-x" style="bottom:12px">← Individual Focus &nbsp;&nbsp;&nbsp; Social Focus →</div>
+          <div class="matrix-axis-y" style="left:12px">← Low Depth &nbsp;&nbsp; High Depth →</div>
+          <!-- Competitors -->
+          <div class="matrix-point" style="background:rgba(139,144,160,0.5);left:25%;top:30%"></div>
+          <div class="matrix-label" style="color:var(--muted);left:25%;top:24%;font-size:10px">Woebot</div>
+          <div class="matrix-point" style="background:rgba(139,144,160,0.5);left:20%;top:65%"></div>
+          <div class="matrix-label" style="color:var(--muted);left:20%;top:71%;font-size:10px">Streaks</div>
+          <div class="matrix-point" style="background:rgba(139,144,160,0.5);left:60%;top:70%"></div>
+          <div class="matrix-label" style="color:var(--muted);left:60%;top:76%;font-size:10px">Habitica</div>
+          <div class="matrix-point" style="background:rgba(139,144,160,0.5);left:55%;top:55%"></div>
+          <div class="matrix-label" style="color:var(--muted);left:55%;top:61%;font-size:10px">Finch</div>
+          <!-- DreamCoach -->
+          <div class="matrix-point" style="background:var(--emerald);left:72%;top:22%;width:16px;height:16px;border:3px solid rgba(52,217,138,0.3);box-shadow:0 0 20px rgba(52,217,138,0.4)"></div>
+          <div class="matrix-label" style="color:var(--emerald);left:72%;top:14%;font-size:11px;font-weight:700">DreamCoach ✦</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 9: COMPETITIVE LANDSCAPE -->
+<section id="competitive" class="fade-up">
+  <span class="section-label"><span class="section-number">08</span>Competitive Landscape</span>
+  <h2>The market is crowded. The specific position isn't.</h2>
+  <p>DreamCoach operates in a genuine white space — the intersection of psychological depth and social accountability that no competitor currently occupies.</p>
+  <div style="overflow-x:auto;margin-top:32px">
+    <table>
+      <thead>
+        <tr>
+          <th>App</th>
+          <th>Price</th>
+          <th>Social Layer</th>
+          <th>AI Depth</th>
+          <th>Dream-Level</th>
+          <th>Letting Go</th>
+          <th>Gap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Habitica</td><td>Free + £4.99/mo</td><td class="partial">⚡ Guilds</td><td class="cross">✗</td><td class="cross">✗ Task-level</td><td class="cross">✗</td><td style="font-size:13px;color:var(--muted)">Gamification ages poorly</td></tr>
+        <tr><td>Streaks</td><td>£5.99 one-time</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗ Task-level</td><td class="cross">✗</td><td style="font-size:13px;color:var(--muted)">iOS only, no social</td></tr>
+        <tr><td>Finch</td><td>Free + £7.99/mo</td><td class="cross">✗</td><td class="cross">✗</td><td class="partial">⚡ Emotional</td><td class="cross">✗</td><td style="font-size:13px;color:var(--muted)">Mascot-dependent</td></tr>
+        <tr><td>Woebot</td><td>Free / Enterprise</td><td class="cross">✗</td><td class="check">✓ CBT</td><td class="cross">✗ Symptom</td><td class="cross">✗</td><td style="font-size:13px;color:var(--muted)">Clinical, not aspirational</td></tr>
+        <tr><td>Coach.me</td><td>Free + coaches £15–500</td><td class="partial">⚡ Coaches</td><td class="cross">✗</td><td class="partial">⚡ Goals</td><td class="cross">✗</td><td style="font-size:13px;color:var(--muted)">High cost, doesn't scale</td></tr>
+        <tr style="background:rgba(52,217,138,0.04)">
+          <td style="color:var(--emerald);font-weight:700">DreamCoach</td>
+          <td>Free + £7.99/mo</td>
+          <td class="check">✓ Teams</td>
+          <td class="check">✓ Deep AI</td>
+          <td class="check">✓ Dream-level</td>
+          <td class="check">✓ Ceremony</td>
+          <td style="font-size:13px;color:var(--emerald);font-weight:600">Unclaimed position</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout fade-up" style="margin-top:32px;text-align:left">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+      <div class="badge">Unclaimed Territory</div>
+    </div>
+    <p style="margin:0;color:var(--text)">The intersection of <strong>high psychological depth</strong> + <strong>social accountability</strong> + <strong>dream-level aspiration</strong> + <strong>letting go support</strong> is genuinely unoccupied by any competitor in this market. DreamCoach claims it.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 10: MONETISATION -->
+<section id="monetisation" class="fade-up">
+  <span class="section-label"><span class="section-number">09</span>Monetisation</span>
+  <h2>Freemium that converts. A revenue model built on genuine value.</h2>
+  <p>36% of habit app users already pay for premium features. The market has proven willingness. The challenge is making the free tier valuable enough to build the habit — and the premium tier valuable enough to upgrade.</p>
+  <div class="grid-3" style="margin-top:48px">
+    <div class="card fade-up" style="transition-delay:0.1s">
+      <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Free</div>
+      <div style="font-size:36px;font-weight:800;margin-bottom:4px">£0</div>
+      <p style="font-size:14px;margin-bottom:20px">Build the habit. No credit card.</p>
+      <div style="border-top:1px solid var(--border);padding-top:20px">
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px">✓ 1 active dream</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px">✓ Basic streak tracking</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px">✓ Grace days</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px">✓ Dream journal</div>
+        <div style="font-size:14px;color:var(--muted)">✓ 1 Dream Team</div>
+      </div>
+    </div>
+    <div class="card fade-up" style="transition-delay:0.2s;border-color:rgba(52,217,138,0.4);box-shadow:0 0 40px rgba(52,217,138,0.08)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--emerald)">Premium</div>
+        <div class="badge">Most Popular</div>
+      </div>
+      <div style="font-size:36px;font-weight:800;margin-bottom:4px;color:var(--emerald)">£7.99<span style="font-size:16px;font-weight:400;color:var(--muted)">/mo</span></div>
+      <p style="font-size:14px;margin-bottom:20px">£59.99/year — save 37%</p>
+      <div style="border-top:1px solid var(--border);padding-top:20px">
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px">✓ Everything in Free</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px">✓ Unlimited dreams</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px">✓ AI Dream Coach</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px">✓ AI Letting Go guide</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px">✓ Advanced analytics</div>
+        <div style="font-size:14px;color:var(--muted)">✓ Weekly AI narrative</div>
+      </div>
+    </div>
+    <div class="card fade-up" style="transition-delay:0.3s">
+      <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin-bottom:12px">Team</div>
+      <div style="font-size:36px;font-weight:800;margin-bottom:4px">£3.99<span style="font-size:16px;font-weight:400;color:var(--muted)">/user/mo</span></div>
+      <p style="font-size:14px;margin-bottom:20px">Min. 2 users. Dream Team of 5 = £19.95/mo</p>
+      <div style="border-top:1px solid var(--border);padding-top:20px">
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px">✓ Everything in Premium</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px">✓ Team admin dashboard</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px">✓ Team AI insights</div>
+        <div style="font-size:14px;color:var(--muted)">✓ Priority support</div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-top:48px;gap:40px">
+    <div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:20px">LTV Metrics (Base Case)</div>
+      <div class="metric-grid">
+        <div class="metric-item"><div class="metric-value">12.4×</div><div class="metric-label">LTV : CAC ratio</div></div>
+        <div class="metric-item"><div class="metric-value">14mo</div><div class="metric-label">Avg tenure</div></div>
+        <div class="metric-item"><div class="metric-value">6%</div><div class="metric-label">Monthly churn</div></div>
+        <div class="metric-item"><div class="metric-value">4%</div><div class="metric-label">Conversion rate</div></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:20px">Revenue Calculator</div>
+      <div class="calculator-card">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+          <span style="font-size:14px;color:var(--text);font-weight:500">Monthly Active Users</span>
+          <span style="font-size:14px;color:var(--emerald);font-weight:700" id="mau-display">50,000</span>
+        </div>
+        <input type="range" min="1000" max="500000" value="50000" step="1000" class="calc-slider" id="mau-slider">
+        <div class="calc-result">
+          <div class="calc-result-value" id="revenue-display">£14,400</div>
+          <div class="calc-result-label">Monthly Recurring Revenue (base case)</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:8px" id="revenue-detail">4% conversion · £7.20 avg ARPU</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 11: CODE REVIEW -->
+<section id="code-review" class="fade-up">
+  <span class="section-label"><span class="section-number">10</span>Code Review</span>
+  <h2>You've built more than you think. Here's exactly where you are.</h2>
+  <p>3PR conducted a full technical review of the DreamCoach codebase on 13 May 2026. The front-end is further along than expected — the logic layer is excellent. What's missing is the backend.</p>
+  <div class="grid-2" style="gap:40px;margin-top:48px;align-items:start">
+    <div>
+      <div style="text-align:center;margin-bottom:40px">
+        <div class="trust-ring">71</div>
+        <div style="font-size:16px;font-weight:600;margin-bottom:4px">Trust Score</div>
+        <div style="font-size:13px;color:var(--muted)">Production readiness: 71/100</div>
+      </div>
+      <div style="margin-bottom:28px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:14px;color:var(--text)">Overall Completion</span>
+          <span style="font-size:14px;color:var(--emerald);font-weight:700">62%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill progress-anim" data-width="62" style="width:0%"></div></div>
+      </div>
+      <div style="margin-bottom:20px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;color:var(--muted)">Assessment & Logic Layer</span><span style="font-size:13px;color:var(--emerald)">95%</span></div>
+        <div class="progress-bar"><div class="progress-fill progress-anim" data-width="95" style="width:0%"></div></div>
+      </div>
+      <div style="margin-bottom:20px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;color:var(--muted)">Daily Check-in & Streaks</span><span style="font-size:13px;color:var(--emerald)">90%</span></div>
+        <div class="progress-bar"><div class="progress-fill progress-anim" data-width="90" style="width:0%"></div></div>
+      </div>
+      <div style="margin-bottom:20px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;color:var(--muted)">Letting Go Flow</span><span style="font-size:13px;color:var(--teal)">85%</span></div>
+        <div class="progress-bar"><div class="progress-fill progress-anim" data-width="85" style="width:0%;background:linear-gradient(90deg,var(--teal),var(--sapphire))"></div></div>
+      </div>
+      <div style="margin-bottom:20px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;color:var(--muted)">Authentication & Backend</span><span style="font-size:13px;color:var(--amber)">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:2%;background:var(--amber)"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;color:var(--muted)">Dream Teams (cross-device)</span><span style="font-size:13px;color:var(--red)">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:2%;background:var(--red)"></div></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:20px">What David Built Well</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px">
+        <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--emerald)">✓</span><span style="font-size:14px;color:var(--muted)"><strong style="color:var(--text)">Logic layer is excellent.</strong> Classification, archetype, and insight engines are complete, correctly implemented, and match the spec.</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--emerald)">✓</span><span style="font-size:14px;color:var(--muted)"><strong style="color:var(--text)">TypeScript types are comprehensive.</strong> Covers everything including post-MVP features. Well ahead of spec.</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--emerald)">✓</span><span style="font-size:14px;color:var(--muted)"><strong style="color:var(--text)">Storage layer is solid.</strong> Well-abstracted localStorage CRUD with sensible signatures and good edge-case handling.</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--emerald)">✓</span><span style="font-size:14px;color:var(--muted)"><strong style="color:var(--text)">UX copy is excellent.</strong> Archetype descriptions, insight generation — all strong.</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--emerald)">✓</span><span style="font-size:14px;color:var(--muted)"><strong style="color:var(--text)">Mobile-first layout.</strong> Correct safe area insets, 44px+ touch targets, proper PWA setup.</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--emerald)">✓</span><span style="font-size:14px;color:var(--muted)"><strong style="color:var(--text)">Momentum graph.</strong> Custom SVG chart, no dependencies, works well.</span></div>
+      </div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:16px">Gap Analysis</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="card2" style="padding:14px 16px;border-left:3px solid var(--red)"><strong style="color:var(--red);font-size:13px">CRITICAL:</strong> <span style="font-size:13px;color:var(--muted)">User auth, multi-device sync, cross-device Dream Teams</span></div>
+        <div class="card2" style="padding:14px 16px;border-left:3px solid var(--amber)"><strong style="color:var(--amber);font-size:13px">IMPORTANT:</strong> <span style="font-size:13px;color:var(--muted)">Push notifications, analytics, backend infrastructure</span></div>
+        <div class="card2" style="padding:14px 16px;border-left:3px solid var(--sapphire)"><strong style="color:var(--sapphire);font-size:13px">POLISH:</strong> <span style="font-size:13px;color:var(--muted)">Tailwind consistency, test suite, repo cleanup</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 12: ARCHITECTURE -->
+<section id="architecture" class="fade-up">
+  <span class="section-label"><span class="section-number">11</span>Architecture & Build</span>
+  <h2>Dave velocity. 3–4 weeks to production.</h2>
+  <p>The critical path is clear. Keep the front-end (it's good), clean up the repo, wire in Supabase, and rebuild Dream Teams with real cross-device sync. Total build time: ~26 hours on the critical path.</p>
+  <div class="grid-3" style="margin-top:48px">
+    <div class="card2 fade-up" style="transition-delay:0.1s;text-align:center;padding:28px">
+      <div style="font-size:32px;margin-bottom:12px">📱</div>
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px">React Native</div>
+      <div style="font-size:12px;color:var(--muted)">iOS + Android. Cross-platform at Dave velocity.</div>
+    </div>
+    <div class="card2 fade-up" style="transition-delay:0.15s;text-align:center;padding:28px">
+      <div style="font-size:32px;margin-bottom:12px">⚡</div>
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px">Supabase</div>
+      <div style="font-size:12px;color:var(--muted)">Auth, database, realtime sync. Backend in hours.</div>
+    </div>
+    <div class="card2 fade-up" style="transition-delay:0.2s;text-align:center;padding:28px">
+      <div style="font-size:32px;margin-bottom:12px">🧠</div>
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px">AI Layer</div>
+      <div style="font-size:12px;color:var(--muted)">Claude Sonnet via Anthropic API. Coach + Ceremony.</div>
+    </div>
+    <div class="card2 fade-up" style="transition-delay:0.25s;text-align:center;padding:28px">
+      <div style="font-size:32px;margin-bottom:12px">💳</div>
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px">Stripe</div>
+      <div style="font-size:12px;color:var(--muted)">Premium + Team subscriptions. Web-direct avoids 30% App Store fee.</div>
+    </div>
+    <div class="card2 fade-up" style="transition-delay:0.3s;text-align:center;padding:28px">
+      <div style="font-size:32px;margin-bottom:12px">📊</div>
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px">PostHog</div>
+      <div style="font-size:12px;color:var(--muted)">Product analytics. Open source. Day 30 retention dashboards.</div>
+    </div>
+    <div class="card2 fade-up" style="transition-delay:0.35s;text-align:center;padding:28px">
+      <div style="font-size:32px;margin-bottom:12px">🔔</div>
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px">Push Notifications</div>
+      <div style="font-size:12px;color:var(--muted)">Daily check-in reminders. Gentle nudges. Critical for DAU.</div>
+    </div>
+  </div>
+  <div style="margin-top:60px">
+    <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:32px">3-Phase Build Timeline</div>
+    <div class="timeline">
+      <div class="timeline-item fade-up" style="transition-delay:0.1s">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Phase 1 · Days 1–7</div>
+        <div class="timeline-title">MVP Foundation</div>
+        <div class="timeline-desc">Supabase auth + schema, storage adapter, Dream Teams backend with cross-device sync, repo cleanup. All existing front-end preserved. Auth middleware wired. App works across devices for the first time.</div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <div class="icon-pill" style="font-size:11px">Supabase setup</div>
+          <div class="icon-pill" style="font-size:11px">Magic link auth</div>
+          <div class="icon-pill" style="font-size:11px">Cross-device sync</div>
+          <div class="icon-pill" style="font-size:11px">Dream Teams fixed</div>
+        </div>
+      </div>
+      <div class="timeline-item fade-up" style="transition-delay:0.2s">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Phase 2 · Days 8–14</div>
+        <div class="timeline-title">AI + Premium Layer</div>
+        <div class="timeline-desc">AI Dream Coach integration, AI Letting Go guide, Stripe subscriptions (Free/Premium/Team), push notifications, PostHog analytics wired. Premium gating live.</div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <div class="icon-pill" style="font-size:11px">AI Dream Coach</div>
+          <div class="icon-pill" style="font-size:11px">AI Letting Go</div>
+          <div class="icon-pill" style="font-size:11px">Stripe payments</div>
+          <div class="icon-pill" style="font-size:11px">Push notifications</div>
+        </div>
+      </div>
+      <div class="timeline-item fade-up" style="transition-delay:0.3s">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Phase 3 · Days 15–21</div>
+        <div class="timeline-title">Polish + Ship</div>
+        <div class="timeline-desc">Design system polish, onboarding flow, Day 1–30 experience, App Store submission, production deployment. Full QA. Ready for launch.</div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <div class="icon-pill" style="font-size:11px">Design polish</div>
+          <div class="icon-pill" style="font-size:11px">Onboarding</div>
+          <div class="icon-pill" style="font-size:11px">App Store submission</div>
+          <div class="icon-pill" style="font-size:11px">Launch-ready</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 13: GO-TO-MARKET -->
+<section id="gtm" class="fade-up">
+  <span class="section-label"><span class="section-number">12</span>Go-to-Market</span>
+  <h2>Dream Teams is the growth engine. Everything else amplifies it.</h2>
+  <p>With a K-factor of 0.4 per user (each user invites 0.4 new users via Dream Team), DreamCoach has organic growth built into the core product mechanic. Every team created is a referral loop.</p>
+  <div class="grid-2" style="gap:40px;margin-top:48px">
+    <div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:20px">5 Launch Channels</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="card2" style="display:flex;gap:16px;align-items:center">
+          <div style="font-size:24px;font-weight:800;color:var(--emerald);min-width:32px">01</div>
+          <div><strong style="color:var(--text);font-size:14px">Dream Teams Invite Loop</strong><br><span style="color:var(--muted);font-size:13px">Primary growth engine. Every team creation = 1–4 referral invites with social proof embedded.</span></div>
+        </div>
+        <div class="card2" style="display:flex;gap:16px;align-items:center">
+          <div style="font-size:24px;font-weight:800;color:var(--teal);min-width:32px">02</div>
+          <div><strong style="color:var(--text);font-size:14px">Instagram + TikTok Organic</strong><br><span style="color:var(--muted);font-size:13px">Dream psychology content. The dark premium visual identity stands out in a pastel-saturated wellness feed.</span></div>
+        </div>
+        <div class="card2" style="display:flex;gap:16px;align-items:center">
+          <div style="font-size:24px;font-weight:800;color:var(--gold);min-width:32px">03</div>
+          <div><strong style="color:var(--text);font-size:14px">Podcast Advertising</strong><br><span style="color:var(--muted);font-size:13px">Self-improvement and psychology podcasts. Diary of a CEO tier. Start mid-tier, scale to major shows.</span></div>
+        </div>
+        <div class="card2" style="display:flex;gap:16px;align-items:center">
+          <div style="font-size:24px;font-weight:800;color:var(--sapphire);min-width:32px">04</div>
+          <div><strong style="color:var(--text);font-size:14px">Reddit Community Seeding</strong><br><span style="color:var(--muted);font-size:13px">r/selfimprovement (2.3M), r/productivity (2.1M). Founder-led. Philosophy first, not promo.</span></div>
+        </div>
+        <div class="card2" style="display:flex;gap:16px;align-items:center">
+          <div style="font-size:24px;font-weight:800;color:var(--muted);min-width:32px">05</div>
+          <div><strong style="color:var(--text);font-size:14px">Apple App Store Editorial</strong><br><span style="color:var(--muted);font-size:13px">Dark UI + Letting Go = strong "Apps We Love" pitch. Submit at launch. Target "Apps Supporting Mental Wellness."</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:20px">Launch Targets</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px">
+        <div class="metric-item"><div class="metric-value">1K</div><div class="metric-label">Month 1 downloads</div></div>
+        <div class="metric-item"><div class="metric-value">120</div><div class="metric-label">Dream Teams created</div></div>
+        <div class="metric-item"><div class="metric-value">5K</div><div class="metric-label">Month 3 downloads</div></div>
+        <div class="metric-item"><div class="metric-value">250</div><div class="metric-label">Month 3 premium</div></div>
+      </div>
+      <div class="callout" style="text-align:left;padding:24px">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--emerald);margin-bottom:8px">North Star Metric</div>
+        <div style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:6px">Dream Teams created per week</div>
+        <div style="font-size:14px;color:var(--muted)">This is the leading indicator for everything downstream. A healthy team formation rate predicts retention and acquisition simultaneously.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 14: WHAT 3PR DELIVERS -->
+<section id="deliver" class="fade-up">
+  <span class="section-label"><span class="section-number">13</span>What 3PR Delivers</span>
+  <h2>You bring the vision. We bring the machine to build it.</h2>
+  <p>3PR is a product studio with experience shipping consumer apps, payment systems, and AI-integrated products. We don't consult — we build.</p>
+  <div class="deliverable-row" style="margin-top:48px">
+    <div class="deliverable-col">
+      <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--emerald);margin-bottom:20px">3PR Delivers</div>
+      <div class="checklist-item"><span class="checklist-check">✓</span><div class="checklist-text"><strong>Production-ready backend</strong>Supabase auth, schema, storage adapter, cross-device sync</div></div>
+      <div class="checklist-item"><span class="checklist-check">✓</span><div class="checklist-text"><strong>Dream Teams rebuilt</strong>Real cross-device collaboration with Supabase realtime</div></div>
+      <div class="checklist-item"><span class="checklist-check">✓</span><div class="checklist-text"><strong>AI integration</strong>Dream Coach + Letting Go guide, Claude Sonnet API</div></div>
+      <div class="checklist-item"><span class="checklist-check">✓</span><div class="checklist-text"><strong>Stripe subscriptions</strong>Free / Premium / Team tiers with web-direct billing</div></div>
+      <div class="checklist-item"><span class="checklist-check">✓</span><div class="checklist-text"><strong>Push notifications</strong>Daily reminders, team nudges, milestone alerts</div></div>
+      <div class="checklist-item"><span class="checklist-check">✓</span><div class="checklist-text"><strong>Design system polish</strong>Full design system, Dave-executed at production quality</div></div>
+      <div class="checklist-item"><span class="checklist-check">✓</span><div class="checklist-text"><strong>App Store submission</strong>iOS + Android build, review, submission</div></div>
+    </div>
+    <div class="deliverable-col">
+      <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:20px">David Provides</div>
+      <div class="checklist-item"><span style="color:var(--teal)">→</span><div class="checklist-text"><strong>Product vision and decisions</strong>You know what DreamCoach should feel like. We execute that.</div></div>
+      <div class="checklist-item"><span style="color:var(--teal)">→</span><div class="checklist-text"><strong>Content creation</strong>12 weeks of founder content pre-launch builds the audience</div></div>
+      <div class="checklist-item"><span style="color:var(--teal)">→</span><div class="checklist-text"><strong>Waitlist growth</strong>5K signups before launch. The dream you're building attracts your first users</div></div>
+      <div class="checklist-item"><span style="color:var(--teal)">→</span><div class="checklist-text"><strong>Design approval</strong>Two review gates — design system, then full build</div></div>
+      <div class="checklist-item"><span style="color:var(--teal)">→</span><div class="checklist-text"><strong>App Store accounts</strong>Apple + Google Developer accounts in your name</div></div>
+    </div>
+  </div>
+  <div style="margin-top:40px">
+    <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:20px">Track Record</div>
+    <div class="grid-3">
+      <div class="card2 fade-up" style="transition-delay:0.1s">
+        <div style="font-size:11px;color:var(--emerald);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px">Drawly</div>
+        <div style="font-size:14px;color:var(--text);margin-bottom:6px">Prize competition platform</div>
+        <div style="font-size:13px;color:var(--muted)">Evo Capital, Philippines. Full-stack build with Supabase + React Native + Stripe in under 4 weeks.</div>
+      </div>
+      <div class="card2 fade-up" style="transition-delay:0.2s">
+        <div style="font-size:11px;color:var(--teal);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px">Vero Marbella</div>
+        <div style="font-size:14px;color:var(--text);margin-bottom:6px">Premium hospitality brand</div>
+        <div style="font-size:13px;color:var(--muted)">Brand identity, web presence, booking system. From brief to live in 2 weeks.</div>
+      </div>
+      <div class="card2 fade-up" style="transition-delay:0.3s">
+        <div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px">imdave.ai</div>
+        <div style="font-size:14px;color:var(--text);margin-bottom:6px">AI operating system</div>
+        <div style="font-size:13px;color:var(--muted)">Full-stack AI platform with multi-agent orchestration, client billing, and subscription management.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION 15: NEXT STEPS -->
+<section id="next-steps" class="fade-up">
+  <span class="section-label"><span class="section-number">14</span>Next Steps</span>
+  <div class="callout" style="margin-bottom:48px">
+    <div class="callout-title">Ready to build?</div>
+    <div class="callout-text">The scope is clear. The vision is defined. The codebase is further along than expected. Everything is in place for a 3–4 week sprint to a production-ready app.</div>
+  </div>
+  <div class="grid-3" style="margin-bottom:48px">
+    <div class="step-card fade-up" style="transition-delay:0.1s">
+      <div class="step-number">1</div>
+      <h3>Brief Sign-Off</h3>
+      <p>Confirm v1 scope. Agree the design direction. This conversation is 30 minutes and unblocks everything.</p>
+    </div>
+    <div class="step-card fade-up" style="transition-delay:0.2s">
+      <div class="step-number">2</div>
+      <h3>Design Review</h3>
+      <p>Review the three design directions in the moodboard. Pick one. 3PR executes the full design system before a single line of new code.</p>
+    </div>
+    <div class="step-card fade-up" style="transition-delay:0.3s">
+      <div class="step-number">3</div>
+      <h3>Build Sprint</h3>
+      <p>3–4 weeks. Backend first, AI second, polish third. Weekly check-ins. Production-ready at the end.</p>
+    </div>
+  </div>
+  <div style="text-align:center;padding:60px 0">
+    <h2 style="margin-bottom:16px">DreamCoach is ready to be built.</h2>
+    <p style="max-width:500px;margin:0 auto 32px;font-size:18px">The question isn't whether the market wants this. It does. The question is how fast you move.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="mailto:lj@3pr.co.uk?subject=DreamCoach Build" class="btn btn-primary" style="font-size:16px;padding:16px 36px">Let's Build DreamCoach →</a>
+      <a href="https://dreamcoach-moodboard.vercel.app" class="btn btn-secondary" style="font-size:16px;padding:16px 36px">View Design Directions</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Dream<span>Coach</span> × <span style="color:var(--text)">3PR</span></div>
+  <p>A 3PR Solutions Group proposal · Confidential · 2026</p>
+  <p style="margin-top:8px">LJ@3pr.co.uk · <a href="https://3pr.co.uk" style="color:var(--muted)">3pr.co.uk</a></p>
+</footer>
+
+<script>
+// FADE UP OBSERVER
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+}), {threshold:0.08});
+document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+// ANIMATED COUNTERS
+function animateCount(el, target, suffix='', prefix='') {
+  const duration = 2000;
+  const step = target / (duration / 16);
+  let start = 0;
+  const timer = setInterval(() => {
+    start = Math.min(start + step, target);
+    const val = Number.isInteger(target) ? Math.round(start) : start.toFixed(1);
+    el.textContent = prefix + val.toLocaleString() + suffix;
+    if(start >= target) clearInterval(timer);
+  }, 16);
+}
+
+const counterIO = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting) {
+    const el = e.target;
+    const target = parseFloat(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const decimal = el.dataset.decimal;
+    const finalTarget = decimal ? target / Math.pow(10, 1) : target;
+    const finalSuffix = decimal ? '%' : suffix;
+    if(decimal) {
+      animateCount(el, 14.4, '%');
+    } else {
+      animateCount(el, target, suffix);
+    }
+    counterIO.unobserve(el);
+  }
+}), {threshold: 0.5});
+document.querySelectorAll('[data-target]').forEach(el => counterIO.observe(el));
+
+// PROGRESS BAR ANIMATIONS
+const progressIO = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting) {
+    const fill = e.target;
+    const w = fill.dataset.width;
+    setTimeout(() => { fill.style.width = w + '%'; }, 200);
+    progressIO.unobserve(fill);
+  }
+}), {threshold:0.3});
+document.querySelectorAll('.progress-anim').forEach(el => progressIO.observe(el));
+
+// REVENUE CALCULATOR
+const slider = document.getElementById('mau-slider');
+const mauDisplay = document.getElementById('mau-display');
+const revenueDisplay = document.getElementById('revenue-display');
+const revenueDetail = document.getElementById('revenue-detail');
+function updateCalc() {
+  const mau = parseInt(slider.value);
+  const subscribers = Math.round(mau * 0.04);
+  const mrr = Math.round(subscribers * 7.20);
+  mauDisplay.textContent = mau.toLocaleString();
+  revenueDisplay.textContent = '£' + mrr.toLocaleString();
+  revenueDetail.textContent = subscribers.toLocaleString() + ' subscribers · £7.20 avg ARPU';
+}
+slider.addEventListener('input', updateCalc);
+updateCalc();
+</script>
+</body>
+</html>
